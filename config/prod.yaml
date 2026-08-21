@@ -4,7 +4,15 @@ app:
 
 logging:
   level: INFO
+  console:
+    enabled: true
+  file:
+    enabled: true
+    path: logs/offer-helper.log
+    max_bytes: 52428800
+    backup_count: 20
 
 database:
   pool_size: 20
+  max_overflow: 40
   echo: false

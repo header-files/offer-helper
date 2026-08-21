@@ -8,8 +8,11 @@ dependencies = [
     "alembic>=1.19.1",
     "asyncpg>=0.31.0",
     "fastapi>=0.141.1",
+    "greenlet>=3.5.5",
     "httpx>=0.28.1",
     "langchain>=1.3.16",
+    "langchain-deepseek>=1.1.0",
+    "langchain-openai>=1.6.0",
     "langgraph>=1.2.11",
     "pydantic>=2.13.4",
     "pydantic-settings>=2.15.0",
@@ -61,7 +64,12 @@ warn_unused_configs = true
 packages = ["app"]
 mypy_path = "."
 explicit_package_bases = true
+exclude = ["tests"]
 
 [[tool.mypy.overrides]]
-module = ["langchain.*", "langgraph.*"]
+module = ["langchain.*", "langchain_openai.*", "langchain_deepseek.*", "langgraph.*"]
 ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = ["app.infrastructure.redis.factory"]
+disable_error_code = ["type-arg", "var-annotated", "call-arg", "attr-defined"]

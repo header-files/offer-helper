@@ -19,4 +19,13 @@ def test_get_settings_reads_yaml(monkeypatch: Any) -> None:
     assert settings.app_name == "offer-helper"
     assert settings.app_env == "test"
     assert settings.debug is True
+    assert settings.redis_max_connections == 30
+    assert settings.redis_decode_responses is True
+    assert settings.log_console_enabled is True
+    assert settings.log_file_enabled is False
+    assert settings.database_pool_size == 5
+    assert settings.database_echo is False
+    assert settings.llm_default == "chat"
+    assert "chat" in settings.llm_models
+    assert "reasoner" in settings.llm_models
     clear_settings_cache()

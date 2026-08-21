@@ -4,6 +4,13 @@ app:
 
 logging:
   level: DEBUG
+  console:
+    enabled: true
+  file:
+    enabled: true
+    path: logs/offer-helper.log
+    max_bytes: 10485760
+    backup_count: 10
 
 database:
   echo: true

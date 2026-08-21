@@ -1,28 +1,56 @@
-# 数据库文档（Phase 0）
+# 数据库文档
 
 ## 引擎
 
-- PostgreSQL **18.6**（Docker 镜像 `postgres:18.6`）
+- PostgreSQL **18.6**
 - 异步驱动：`asyncpg`
-- ORM：SQLAlchemy 2.x
-- 迁移：Alembic（目录 `migrations/`，业务迁移在后续阶段添加）
+- ORM：SQLAlchemy 2.x（`AsyncEngine` + `AsyncSession`）
+- 连接池：SQLAlchemy `AsyncAdaptedQueuePool`（`pool_size` / `max_overflow` / `pool_pre_ping`）
+- 迁移：Alembic（目录 `migrations/`，业务迁移后续添加）
 
 ## 连接
 
-- 环境变量：`DATABASE_URL`
-- Compose 内示例：
+环境变量：`DATABASE_URL`
+
+开发（本机 `postgres-server`）：
+
+```text
+postgresql+asyncpg://testuser:testpassword@localhost:5432/testdb
+```
+
+Docker Compose 内（服务名 `postgres`）：
 
 ```text
 postgresql+asyncpg://offer:offer@postgres:5432/offer_helper
 ```
 
-注意主机名为 `postgres`，不是 `localhost`。
+业务代码通过：
 
-## 卷
+```python
+from app.infrastructure.database import get_engine, session_scope, get_session_factory
+from app.api.dependencies import get_db_session
+```
+
+禁止业务代码直接 `create_async_engine()` / `asyncpg.connect()`。
+
+## 连接池配置（YAML）
+
+```yaml
+database:
+  pool_size: 5
+  max_overflow: 10
+  pool_timeout: 30
+  pool_recycle: 1800
+  echo: false
+```
+
+## 卷（Compose）
 
 - Compose volume：`postgres_data`
-- 挂载点：`/var/lib/postgresql`（适配 PostgreSQL 18 镜像布局）
+- 挂载点：`/var/lib/postgresql`
 
-## Phase 0 范围
+## 当前范围
 
-不创建业务表（User / Resume / Job 等）。仅保证数据库容器可健康启动，供后续迁移使用。
+已提供引擎、连接池、Session 工厂与 lifespan 启停。
+
+不创建业务表（User / Resume / Job 等）。

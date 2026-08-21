@@ -1,6 +1,6 @@
 # AGENTS.md — offer-helper 协作与工程规范
 
-本文档约束所有在本仓库工作的人类与 AI Agent。当前阶段为 **Phase 0（Bootstrap）**。
+本文档约束所有在本仓库工作的人类与 AI Agent。当前阶段为 **Phase 1（Redis + Logging + PostgreSQL + LLM 基础设施）**。
 
 ## 1. 架构规范
 
@@ -34,7 +34,7 @@
 ## 4. Git 规范
 
 - 主分支：`main`
-- 当前开发分支：`feature/phase-0-bootstrap`
+- 当前开发分支：`feature/phase-1-redis`
 - Commit 信息简洁说明「为什么」
 - 禁止提交：`.env`、真实 API Key、数据库密码、其它 Secret
 - 必须纳入版本控制：`pyproject.toml`、`uv.lock`、`Dockerfile`、`docker-compose.yml`、`.env.example`、`AGENTS.md`、`README.md`、`docs/`
@@ -87,13 +87,13 @@
 - 非 Secret 配置：`config/base.yaml` + `config/{dev,test,prod}.yaml`
 - Secret 仅通过环境变量注入（见 `.env.example`）：
   - `DATABASE_URL`
-  - `REDIS_URL`
-  - `LLM_API_KEY`
-  - `LLM_BASE_URL`
-  - `LLM_MODEL`
+  - `REDIS_URL`（单机 `redis://`、Sentinel `sentinel://`、Cluster `cluster://`）
+  - `LLM_<MODEL>_API_KEY`（例如 `LLM_CHAT_API_KEY`；与 YAML `llm.models` 名称对应）
 - 统一入口：`Settings` / `get_settings()`
 - 配置与代码分离；环境差异用 YAML 覆盖，密钥永不入库
 
-## 11. Phase 边界
+## Phase 边界
 
-完成 Phase 0 验收后停止，等待指令再进入 Phase 1。不得擅自扩展业务域。
+当前阶段为 **Phase 1（基础设施）**：Redis + Logging + PostgreSQL + 多模型 LLM。
+
+完成当前指令后停止，等待下一指令。不得擅自扩展 User / Resume / Job / Interview / Memory / LangGraph 业务。

@@ -9,11 +9,49 @@ server:
 
 logging:
   level: INFO
+  console:
+    enabled: true
+  file:
+    enabled: false
+    path: logs/offer-helper.log
+    max_bytes: 10485760
+    backup_count: 5
 
 database:
   pool_size: 5
+  max_overflow: 10
+  pool_timeout: 30
+  pool_recycle: 1800
   echo: false
 
 redis:
   db: 0
   decode_responses: true
+  max_connections: 30
+  socket_timeout: 5.0
+  command_timeout: 60
+  default_ttl: 86400
+
+# 注册聊天模型（DeepSeek → ChatDeepSeek；其他 → ChatOpenAI）
+# 可选 provider: auto | openai | deepseek（默认 auto，按 model/base_url 推断）
+# 在此处添加模型 + 在 .env 中设置 LLM_<NAME>_API_KEY — 无需改代码
+llm:
+  default: chat
+  models:
+    chat:
+      model: deepseek-v4-flash
+      base_url: https://api.deepseek.com
+      provider: deepseek
+      temperature: 0.7
+      timeout: 60
+      max_retries: 2
+      extra_body:
+        thinking:
+          type: disabled
+    reasoner:
+      model: deepseek-v4-flash
+      base_url: https://api.deepseek.com
+      provider: deepseek
+      temperature: 0.2
+      timeout: 90
+      max_retries: 2

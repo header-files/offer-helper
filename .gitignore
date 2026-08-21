@@ -41,6 +41,7 @@ Thumbs.db
 postgres_data/
 redis_data/
 
-# Logs
+# Logs（保留 logs/ 目录，忽略实际日志内容）
 *.log
-logs/
+logs/*
+!logs/.gitkeep

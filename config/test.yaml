@@ -4,6 +4,13 @@ app:
 
 logging:
   level: WARNING
+  console:
+    enabled: true
+  file:
+    enabled: true
+    path: logs/offer-helper.log
+    max_bytes: 52428800
+    backup_count: 20
 
 database:
   echo: false
