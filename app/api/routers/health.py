@@ -1,0 +1,13 @@
+"""Health check API router."""
+
+from fastapi import APIRouter
+
+from app.schemas.health import HealthResponse
+
+router = APIRouter(tags=["health"])
+
+
+@router.get("/health", response_model=HealthResponse)
+async def health() -> HealthResponse:
+    """Liveness probe for orchestration and load balancers."""
+    return HealthResponse(status="ok")

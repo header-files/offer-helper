@@ -1,0 +1,19 @@
+app:
+  name: offer-helper
+  api_prefix: /api/v1
+  debug: false
+
+server:
+  host: 0.0.0.0
+  port: 8000
+
+logging:
+  level: INFO
+
+database:
+  pool_size: 5
+  echo: false
+
+redis:
+  db: 0
+  decode_responses: true

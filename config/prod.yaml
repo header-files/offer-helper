@@ -1,0 +1,10 @@
+app:
+  env: prod
+  debug: false
+
+logging:
+  level: INFO
+
+database:
+  pool_size: 20
+  echo: false

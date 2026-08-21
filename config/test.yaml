@@ -1,0 +1,9 @@
+app:
+  env: test
+  debug: true
+
+logging:
+  level: WARNING
+
+database:
+  echo: false

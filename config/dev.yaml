@@ -1,0 +1,9 @@
+app:
+  env: dev
+  debug: true
+
+logging:
+  level: DEBUG
+
+database:
+  echo: true
