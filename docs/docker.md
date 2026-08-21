@@ -1,5 +1,7 @@
 # Docker 文档
 
+基础设施编排（Phase 0 起提供，Phase 1 起与 Redis / PostgreSQL / LLM 联调一致）。
+
 ## 文件
 
 - `Dockerfile`：Python 3.12 + `uv sync --frozen`，运行 `uvicorn app.main:app`

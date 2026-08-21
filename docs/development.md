@@ -10,7 +10,8 @@
 ## 初始化
 
 ```bash
-git checkout feature/phase-1-redis
+# Phase 2 按任务新建分支，例如：
+# git checkout -b feature/phase-2-<topic>
 uv sync
 cp .env.example .env
 ```
@@ -100,4 +101,5 @@ llm = get_chat_model("chat")
 ## 分支
 
 - `main`：稳定主干
-- `feature/phase-1-redis`：当前阶段
+- `feature/phase-1-infrastructure`：Phase 1（基础组件，已完成）
+- `feature/phase-2-*`：Phase 2（进行中，按任务开分支）

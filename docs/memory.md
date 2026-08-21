@@ -1,6 +1,8 @@
-# Memory 文档（Phase 0）
+# Memory 文档
 
-## 目标（后续阶段）
+**当前阶段：Phase 2**（Memory 业务实现待指令明确）。
+
+## 目标
 
 - 长期用户画像
 - Markdown Memory
@@ -18,6 +20,6 @@ app/memory/
 - 记录来源会话与时间戳
 - 与 Agent 状态分离存储边界清晰
 
-## Phase 0
+## 现状
 
-仅保留包结构，**不实现** Memory 存储或检索。
+Phase 0–1 仅保留包结构，**尚未实现** Memory 存储或检索。Phase 2 起按开发指令落地。

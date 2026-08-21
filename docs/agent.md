@@ -1,9 +1,11 @@
 # Agent / LLM 文档
 
+**当前阶段：Phase 2**。LLM 基础设施（Phase 1）已可用；业务 Graph 待指令明确后实现。
+
 ## 规划技术
 
 - LangChain：模型与工具抽象
-- LangGraph：多轮对话与工作流编排（业务 Graph 后续阶段）
+- LangGraph：多轮对话与工作流编排（业务 Graph：Phase 2+）
 - ChatDeepSeek：DeepSeek 官方客户端（保留 `reasoning_content`）
 - ChatOpenAI：其他 OpenAI 兼容模型客户端
 
@@ -71,6 +73,6 @@ print(msg.additional_kwargs.get("reasoning_content"))  # DeepSeek 推理内容
 ## 目录
 
 ```text
-app/infrastructure/llm/   # 聊天模型工厂
-app/agents/               # Graph / Node / Tool（后续）
+app/infrastructure/llm/   # 聊天模型工厂（Phase 1 已完成）
+app/agents/               # Graph / Node / Tool（Phase 2+）
 ```

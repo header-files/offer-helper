@@ -1,6 +1,14 @@
 # AGENTS.md — offer-helper 协作与工程规范
 
-本文档约束所有在本仓库工作的人类与 AI Agent。当前阶段为 **Phase 1（Redis + Logging + PostgreSQL + LLM 基础设施）**。
+本文档约束所有在本仓库工作的人类与 AI Agent。当前阶段为 **Phase 2**。
+
+## 阶段总览
+
+| 阶段 | 状态 | 范围 |
+|------|------|------|
+| Phase 0 | 已完成 | 工程引导：骨架、Docker、Settings、`GET /health`、测试与质量工具 |
+| Phase 1 | 已完成 | 基础组件：Redis、Logging、PostgreSQL、多模型 LLM |
+| Phase 2 | 进行中 | 由后续开发指令明确；未接到明确实现指令前，不得擅自扩展业务域 |
 
 ## 1. 架构规范
 
@@ -8,8 +16,8 @@
   - `api` → `services` → `repositories` → `models` / `infrastructure`
   - `schemas` 负责 API 入出参；`models` 负责持久化实体
   - `agents` 仅通过 `services` / `infrastructure.llm` 交互，不直连数据库细节
-- 多用户系统：所有用户数据访问必须带 `user_id` 隔离条件（后续阶段强制）
-- Phase 0 禁止实现：User / Resume / Job / Interview / Memory / LangGraph 业务 / LLM Agent 业务
+- 多用户系统：所有用户数据访问必须带 `user_id` 隔离条件（Phase 2 起强制，随业务落地）
+- 在 Phase 2 指令明确前，禁止擅自实现：User / Resume / Job / Interview / Memory / LangGraph 业务 / LLM Agent 业务
 
 ## 2. 代码规范
 
@@ -28,13 +36,14 @@
   - `tests/integration/`：基础设施集成
   - `tests/api/`：HTTP 契约
   - `tests/agents/`：Agent 行为（后续）
-- 每个可观察行为至少有一条测试；Phase 0 必须覆盖 `GET /health`
+- 每个可观察行为至少有一条测试；`GET /health` 必须持续覆盖
 - 运行：`uv run pytest`
 
 ## 4. Git 规范
 
 - 主分支：`main`
-- 当前开发分支：`feature/phase-1-redis`
+- Phase 1 开发分支：`feature/phase-1-infrastructure`（已完成）
+- Phase 2 开发分支：按任务创建（如 `feature/phase-2-...`）
 - Commit 信息简洁说明「为什么」
 - 禁止提交：`.env`、真实 API Key、数据库密码、其它 Secret
 - 必须纳入版本控制：`pyproject.toml`、`uv.lock`、`Dockerfile`、`docker-compose.yml`、`.env.example`、`AGENTS.md`、`README.md`、`docs/`
@@ -66,21 +75,21 @@
 - 后续所有会话、Memory、简历、面试记录必须以 `user_id` 为隔离键
 - Repository / Service 层禁止提供「无用户上下文」的越权查询 API
 - Agent 状态与 Memory 读写必须绑定用户与会话作用域
-- Phase 0 仅预留结构，不实现用户域模型
+- Phase 0–1 仅预留结构；用户域模型在 Phase 2 指令明确后实现
 
 ## 8. Agent 规范
 
 - Agent 编排基于 LangGraph；工具与模型访问经 `infrastructure/llm`
 - Agent 输出需可观测、可测试；禁止在 Agent 内硬编码 Secret
 - Prompt / Graph 定义与业务 Service 分离
-- Phase 0 仅保留 `app/agents/` 包结构，不实现业务 Graph
+- Phase 0–1 仅保留 `app/agents/` 包结构；业务 Graph 在 Phase 2 指令明确后实现
 
 ## 9. Memory 规范
 
 - Memory 支持长期用户画像与 Markdown Memory（后续）
 - Memory 写入必须可追溯（来源会话、时间、用户）
 - 检索与写入均需用户隔离
-- Phase 0 仅保留 `app/memory/` 包结构
+- Phase 0–1 仅保留 `app/memory/` 包结构
 
 ## 10. 配置规范
 
@@ -94,6 +103,6 @@
 
 ## Phase 边界
 
-当前阶段为 **Phase 1（基础设施）**：Redis + Logging + PostgreSQL + 多模型 LLM。
-
-完成当前指令后停止，等待下一指令。不得擅自扩展 User / Resume / Job / Interview / Memory / LangGraph 业务。
+- **Phase 0 / Phase 1 已完成**，基础设施可复用，勿回退破坏
+- **当前为 Phase 2**：范围由下一指令明确
+- 完成当前指令后停止，等待下一指令；不得擅自扩展 User / Resume / Job / Interview / Memory / LangGraph 业务

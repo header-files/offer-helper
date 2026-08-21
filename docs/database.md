@@ -6,7 +6,7 @@
 - 异步驱动：`asyncpg`
 - ORM：SQLAlchemy 2.x（`AsyncEngine` + `AsyncSession`）
 - 连接池：SQLAlchemy `AsyncAdaptedQueuePool`（`pool_size` / `max_overflow` / `pool_pre_ping`）
-- 迁移：Alembic（目录 `migrations/`，业务迁移后续添加）
+- 迁移：Alembic（目录 `migrations/`；业务迁移随 Phase 2+ 添加）
 
 ## 连接
 
@@ -51,6 +51,6 @@ database:
 
 ## 当前范围
 
-已提供引擎、连接池、Session 工厂与 lifespan 启停。
+Phase 1 已提供引擎、连接池、Session 工厂与 lifespan 启停。
 
-不创建业务表（User / Resume / Job 等）。
+业务表（User / Resume / Job 等）与 Alembic 业务迁移在 Phase 2+ 按指令添加。

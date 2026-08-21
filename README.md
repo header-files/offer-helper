@@ -1,16 +1,24 @@
 # offer-helper
 
-生产级 AI 求职助手后端（Phase 0：工程引导）。
+生产级 AI 求职助手后端。
 
-## 功能愿景（后续阶段）
+**当前阶段：Phase 2**（Phase 0 / Phase 1 已完成）。
+
+## 阶段进度
+
+| 阶段 | 状态 | 内容 |
+|------|------|------|
+| Phase 0 | 已完成 | 工程引导：项目骨架、Docker、配置、`GET /health`、pytest / Ruff / Mypy |
+| Phase 1 | 已完成 | 基础组件：Redis、Logging（trace_id）、PostgreSQL、多模型 LLM |
+| Phase 2 | 进行中 | 业务基础（具体范围见后续开发指令） |
+
+## 功能愿景
 
 - 多用户、多轮对话
 - 长期用户画像与 Markdown Memory
 - 简历生成与优化
 - 面试分析
 - 职业规划
-
-Phase 0 **仅**完成：项目初始化、工程结构、Docker、配置、FastAPI `/health`、测试与质量工具、Git。
 
 ## 技术栈
 
@@ -20,7 +28,7 @@ Phase 0 **仅**完成：项目初始化、工程结构、Docker、配置、FastA
 | Web | FastAPI / Pydantic / Pydantic Settings |
 | 数据 | SQLAlchemy 2.x / asyncpg / PostgreSQL 18.6 / Alembic |
 | 缓存 | Redis 8.0.2 |
-| Agent | LangChain / LangGraph（Phase 0 未启用业务实现） |
+| Agent | LangChain / LangGraph（业务 Graph 待 Phase 2+） |
 | 包管理 | uv |
 | 质量 | pytest / pytest-asyncio / Ruff / Mypy |
 | 运行 | Docker / Docker Compose |
@@ -80,7 +88,7 @@ uv run mypy .
 ```text
 app/                 # 应用代码
 config/              # YAML 配置（非 Secret）
-migrations/          # Alembic 迁移（后续阶段）
+migrations/          # Alembic 迁移（业务迁移随 Phase 2+）
 tests/               # unit / integration / api / agents
 docs/                # 架构与规范文档
 ```
